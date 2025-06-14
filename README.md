@@ -33,7 +33,6 @@ azure-infra-automation/
 ├── bicep/                      # Bicep templates for infrastructure
 │   ├── vnet.bicep
 │   ├── nsg.bicep
-│   ├── deploy-nsg.sh
 │   ├── storage.bicep
 │   ├── monitor.bicep
 │   ├── policy.bicep
