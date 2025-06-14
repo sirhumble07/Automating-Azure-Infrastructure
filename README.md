@@ -24,7 +24,6 @@ azure-infra-automation/
 │   ├── deploy-monitor.sh
 │   ├── deploy-policy.sh
 │   ├── deploy-all.sh
-│── docs/
 ├── bicep/                      # Bicep templates for infrastructure
 │   ├── vnet.bicep
 │   ├── nsg.bicep
