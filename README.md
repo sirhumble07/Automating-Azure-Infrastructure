@@ -10,28 +10,32 @@ This project was built as part of the **TechStylers Cohort 6.0 Deep Dive Project
 ✅ **Security & Compliance** with Azure Policy & Defender  
 ✅ **Monitoring & Logging** via Azure Monitor  
 
-## Project Structure  
+## 📁 **Project Structure**  
+```
 azure-infra-automation/
-│── .github/workflows/    # GitHub Actions workflows             
-│── docs/                 # Documentation files     
-├── bicep/				  # Bicep templates for infrastructure
-│ ├── vnet.bicep
-│ ├── nsg.bicep
-│ ├── storage.bicep
-│ ├── vm-windows.bicep
-│ ├── monitor.bicep
-│ ├── policy.bicep
-│ └── main.bicep
+│── .github/                    # GitHub Actions workflows 
+│   ├──workflows/ 
+│── docs/                       # Documentation files 
+│── scripts/                    # Azure CLI automation scripts
+│   ├── deploy-vnet.sh
+│   ├── deploy-nsg.sh
+│   ├── deploy-storage.sh
+│   ├── deploy-vm.sh
+│   ├── deploy-monitor.sh
+│   ├── deploy-policy.sh
+│   ├── deploy-all.sh
+│── docs/
+├── bicep/                      # Bicep templates for infrastructure
+│   ├── vnet.bicep
+│   ├── nsg.bicep
+│   ├── deploy-nsg.sh
+│   ├── storage.bicep
+│   ├── monitor.bicep
+│   ├── policy.bicep
+│   └── main.bicep
 │
-├── scripts/			  # Azure CLI automation scripts
-│ ├── deploy-vnet.sh
-│ ├── deploy-nsg.sh
-│ ├── deploy-storage.sh
-│ ├── deploy-vm.sh
-│ ├── deploy-monitor.sh
-│ ├── deploy-policy.sh
-│ └── deploy-all.sh
-│
-├── README.md             # Project overview & deployment guide
+├── README.md                    # Project overview & deployment guide
 └── LICENSE (optional)
+```
 
+---
