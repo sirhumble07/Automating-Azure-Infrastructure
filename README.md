@@ -1,7 +1,5 @@
 # Automating Azure Infrastructure Deployment with Bicep & GitHub Actions
 
-
-![image](https://github.com/user-attachments/assets/6de44a11-aa7a-40b5-befb-0c268279d359)
 ## **Problem Statement**: 
 A software development company aims to improve efficiency by automating the deployment of its Azure infrastructure for various projects. 
 The company needs to reduce **manual errors**, ensure **consistency across environments**, and **speed up the deployment process**. 
