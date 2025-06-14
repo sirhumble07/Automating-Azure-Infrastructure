@@ -1,0 +1,1 @@
+az group create --name Infrastructure-RG --location 'East US2'
