@@ -18,28 +18,7 @@ This project was built as part of the **TechStylers Cohort 6.0 Deep Dive Project
 
 ## 📁 **Project Structure**  
 ```
-azure-infra-automation/
-│── .github/                    # GitHub Actions workflows 
-│   ├──workflows/ 
-│── docs/                       # Documentation files 
-│── scripts/                    # Azure CLI automation scripts
-│   ├── deploy-vnet.sh
-│   ├── deploy-nsg.sh
-│   ├── deploy-storage.sh
-│   ├── deploy-vm.sh
-│   ├── deploy-monitor.sh
-│   ├── deploy-policy.sh
-│   ├── deploy-all.sh
-├── bicep/                      # Bicep templates for infrastructure
-│   ├── vnet.bicep
-│   ├── nsg.bicep
-│   ├── storage.bicep
-│   ├── monitor.bicep
-│   ├── policy.bicep
-│   └── main.bicep
-│
-├── README.md                    # Project overview & deployment guide
-└── LICENSE (optional)
+![Architecture Diagram](./images/architectural_diagram.png)
 ```
 
 ---
