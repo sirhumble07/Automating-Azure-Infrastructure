@@ -31,7 +31,7 @@ The deployment process was fully integrated with GitHub Actions, supporting auto
 ✅ **Monitoring & Logging** via Azure Monitor  
 
 ## 📁 **Project Bicep Template** 
-[View main.bicep](./main.bicep)
+[**View main.bicep**](./main.bicep)
 
 ## 📁 **Project Structure**  
 ![Architecture Diagram](./images/architectural_diagram.png)
