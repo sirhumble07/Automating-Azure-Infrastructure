@@ -1,81 +1,122 @@
-targetScope = 'resourceGroup'
-
-@description('Azure region for all resources')
-param location string = resourceGroup().location
-
-@description('Windows admin username')
-param adminUsername string =a 'techstylers'
-
+param location string
+param vnetName string
+param subnetName string
+param publicIpName string
+param nicName string
+param nsgName string
+param vmName string
+param adminUsername string
 @secure()
-@description('Windows admin password')
 param adminPassword string
 
-@description('Linux admin username')
-param linuxAdminUsername string = 'techstylers'
-
-@secure()
-@description('Linux admin password')
-param linuxAdminPassword string
-
-@description('Windows VM name')
-param vmName string = 'techstylersVM'
-
-@description('Linux VM name')
-param linuxVmName string = 'techstylersLinuxVM'
-
-@description('Linux Public IP name')
-param linuxPublicIpName string = 'techstylersLinuxPublicIP'
-
-@description('Linux NIC name')
-param linuxNicName string = 'techstylersLinuxNIC'
-
-@description('VNet & network settings')
-param vnetName string = 'techstylersVNet'
-param subnetName string = 'web-subnet'
-param publicIpName string = 'techstylersPublicIP'
-param nicName string = 'techstylersNIC'
-param nsgName string = 'techstylersNSG'
-
-@description('Storage and Monitoring')
-param storageAccountName string = 'techstylersdeepdeepdive6'
-param skuName string = 'Standard_LRS'
-param workspaceName string = 'TechstylersMonitor'
-
-module vnetAndVm './resources.bicep' = {
-  name: 'deployInfra'
-  scope: resourceGroup()
-  params: {
-    location: location
-    vnetName: vnetName
-    subnetName: subnetName
-    publicIpName: publicIpName
-    nicName: nicName
-    nsgName: nsgName
-    vmName: vmName
-    adminUsername: adminUsername
-    adminPassword: adminPassword
-    linuxVmName: linuxVmName
-    linuxPublicIpName: linuxPublicIpName
-    linuxNicName: linuxNicName
-    linuxAdminUsername: linuxAdminUsername
-    linuxAdminPassword: linuxAdminPassword
+// Virtual Network
+resource vnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
+  name: vnetName
+  location: location
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        '10.0.0.0/16'
+      ]
+    }
+    subnets: [
+      {
+        name: subnetName
+        properties: {
+          addressPrefix: '10.0.0.0/24'
+          networkSecurityGroup: {
+            id: nsg.id
+          }
+        }
+      }
+    ]
   }
 }
 
-module storage './storage.bicep' = {
-  name: 'deployStorage'
-  scope: resourceGroup()
-  params: {
-    storageAccountName: storageAccountName
-    skuName: skuName
+// Network Security Group
+resource nsg 'Microsoft.Network/networkSecurityGroups@2023-04-01' = {
+  name: nsgName
+  location: location
+  properties: {
+    securityRules: [
+      {
+        name: 'default-allow-rdp'
+        properties: {
+          priority: 1000
+          direction: 'Inbound'
+          access: 'Allow'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '3389'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+        }
+      }
+    ]
   }
 }
 
-module monitor './monitor.bicep' = {
-  name: 'deployMonitor'
-  scope: resourceGroup()
-  params: {
-    workspaceName: workspaceName
-    location: location
+// Public IP
+resource publicIp 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
+  name: publicIpName
+  location: location
+  properties: {
+    publicIPAllocationMethod: 'Dynamic'
+  }
+}
+
+// Network Interface
+resource nic 'Microsoft.Network/networkInterfaces@2023-04-01' = {
+  name: nicName
+  location: location
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipconfig1'
+        properties: {
+          subnet: {
+            id: vnet.properties.subnets[0].id
+          }
+          privateIPAllocationMethod: 'Dynamic'
+          publicIPAddress: {
+            id: publicIp.id
+          }
+        }
+      }
+    ]
+  }
+}
+
+// Virtual Machine
+resource vm 'Microsoft.Compute/virtualMachines@2023-09-01' = {
+  name: vmName
+  location: location
+  properties: {
+    hardwareProfile: {
+      vmSize: 'Standard_B1s'
+    }
+    osProfile: {
+      computerName: vmName
+      adminUsername: adminUsername
+      adminPassword: adminPassword
+    }
+    storageProfile: {
+      imageReference: {
+        publisher: 'MicrosoftWindowsServer'
+        offer: 'WindowsServer'
+        sku: '2019-Datacenter'
+        version: 'latest'
+      }
+      osDisk: {
+        createOption: 'FromImage'
+      }
+    }
+    networkProfile: {
+      networkInterfaces: [
+        {
+          id: nic.id
+        }
+      ]
+    }
   }
 }
