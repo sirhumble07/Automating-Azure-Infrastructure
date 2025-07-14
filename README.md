@@ -30,6 +30,8 @@ The deployment process was fully integrated with GitHub Actions, supporting auto
 ✅ **Security & Compliance** with Azure Policy & Defender  
 ✅ **Monitoring & Logging** via Azure Monitor  
 
+## 📁 **Project Bicep Template** 
+[View main.bicep](./main.bicep)
 
 ## 📁 **Project Structure**  
 ![Architecture Diagram](./images/architectural_diagram.png)
