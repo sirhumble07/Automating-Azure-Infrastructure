@@ -1,0 +1,35 @@
+name: Azure Bicep CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Azure CLI
+        uses: azure/cli@v2
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Bicep template
+        run: |
+          az deployment group create \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --template-file ./main.bicep \
+            --parameters @parameters.json
+        # Adjust the template-file and parameters path as needed
+
+      - name: Logout from Azure
+        run: az logout

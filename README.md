@@ -16,8 +16,9 @@ This project was built as part of the **TechStylers Cohort 6.0 Deep Dive Project
 ✅ **Security & Compliance** with Azure Policy & Defender  
 ✅ **Monitoring & Logging** via Azure Monitor  
 
+
 ## 📁 **Project Structure**  
 ![Architecture Diagram](./images/architectural_diagram.png)
-```
+
 
 ---
